@@ -28,6 +28,17 @@
     /**
      *
      *
+     * @param {string} name
+     * @param {Commit} commit
+     */
+    function Branch(name, commit){
+        this.name = name;
+        this.commit = commit;
+    }
+
+    /**
+     *
+     *
      * @param {string} message
      * @returns
      */
