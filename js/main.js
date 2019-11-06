@@ -42,6 +42,12 @@
      */
     Git.prototype.log = function(){
             var history = [];
+            var commit = this.HEAD;
+
+            while(commit){
+                history.push(commit);
+                commit = commit.parent;
+            }
             return history;
     }
 
