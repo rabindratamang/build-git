@@ -1,31 +1,57 @@
-/**
- *
- *
- * @param {string} name
- */
-function Git(name){
-    this.name = name;
-    this.lastCommitId = -1;
-}
-/**
- *
- *
- * @param {number} id
- * @param {string} message
- */
-function Commit(id,message) {
-    this.id = id;
-    this.message = message;
-    // Assume that 'this' has a 'change' property too.
-}
+(function(){
 
-/**
- *
- *
- * @param {string} message
- * @returns
- */
-Git.prototype.commit = function(message){
-    var commit = new Commit(++this.lastCommitId,message);
-    return commit;
-}
+    /**
+     *
+     *
+     * @param {string} name
+     */
+    function Git(name){
+        this.name = name;
+        this.lastCommitId = -1;
+        this.HEAD = null; //pointer to the last commit 
+    }
+
+    /**
+     *
+     *
+     * @param {number} id
+     * @param {Commit} parent
+     * @param {string} message
+     */
+    function Commit(id, parent, message) {
+        this.id = id;
+        this.parent = parent;//linked list data structure
+        this.message = message;
+        // Assume that 'this' has a 'change' property too.
+    }
+
+    /**
+     *
+     *
+     * @param {string} message
+     * @returns
+     */
+    Git.prototype.commit = function(message){
+        var commit = new Commit(++this.lastCommitId, this.HEAD, message);
+        this.HEAD = commit;
+        return commit;
+    }
+
+    /**
+     * @returns {Array}
+     */
+    Git.prototype.log = function(){
+            var history = [];
+            var commit = this.HEAD;
+
+            while(commit){
+                history.push(commit);
+                commit = commit.parent;
+            }
+            return history;
+    }
+
+    //expose Git to window to access globally
+    window.Git = Git;
+
+})();

@@ -3,12 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>Learn Git</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 </head>
 <body>
 
     <script src="./js/main.js"></script>
+    <script>
+        var repo = new Git('learn-git');
+        repo.commit("initial commit");
+        repo.commit("first change")
+        
+        var log = repo.log();
+        console.assert(log.length === 2); // Should have 2 commits.
+        console.assert(!!log[0] && log[0].id === 1); // Commit 1 should be first.
+        console.assert(!!log[1] && log[1].id === 0); // And then Commit 0
+    </script>
 </body>
 </html>
